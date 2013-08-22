@@ -1,0 +1,5 @@
+127.0.0.1 - - [22/Aug/2013:23:43:14 +0300] "GET /delete/7 HTTP/1.1" 200 - "http://127.0.0.1:8000/add/1" "Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0"
+127.0.0.1 - - [22/Aug/2013:23:43:14 +0300] "GET /static/css/bootstrap.min.css HTTP/1.1" 304 0 "http://127.0.0.1:8000/delete/7" "Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0"
+127.0.0.1 - - [22/Aug/2013:23:43:14 +0300] "GET /static/css/bootstrap-glyphicons.css HTTP/1.1" 304 0 "http://127.0.0.1:8000/delete/7" "Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0"
+127.0.0.1 - - [22/Aug/2013:23:43:14 +0300] "GET /static/js/bootstrap.min.js HTTP/1.1" 304 0 "http://127.0.0.1:8000/delete/7" "Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0"
+127.0.0.1 - - [22/Aug/2013:23:43:14 +0300] "GET /static/css/custom.css HTTP/1.1" 304 0 "http://127.0.0.1:8000/delete/7" "Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0"

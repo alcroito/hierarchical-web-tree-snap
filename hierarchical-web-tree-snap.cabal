@@ -1,0 +1,66 @@
+name:                hierarchical-web-tree-snap
+version:             0.1.0.0
+license:         BSD3
+license-file:    LICENSE
+author:          Croitor Alexandr <placinta@gmail.com>
+maintainer:      Croitor Alexandr <placinta@gmail.com>
+synopsis:        Snap hierarchical tree web app.
+description:     Web app for management of a simple hierarchical tree using Snap.
+category:        Web
+
+build-type:          Simple
+cabal-version:       >=1.2
+homepage:            http://github.com/placintac/hierarchical-web-tree-snap.git
+
+extra-source-files:
+    README.md
+data-files:
+    static/css/*.css
+    static/css/*.min.css
+    static/js/*.js
+    static/js/*.min.js
+    static/fonts/glyphiconshalflings-regular.eot
+    static/fonts/glyphiconshalflings-regular.otf
+    static/fonts/glyphiconshalflings-regular.svg
+    static/fonts/glyphiconshalflings-regular.ttf
+    static/fonts/glyphiconshalflings-regular.woff
+    templates/*.tpl
+    log/*.log
+
+Executable hierarchical-web-tree-snap
+  hs-source-dirs: src/Web
+  main-is: Main.hs
+  other-modules: Paths_hierarchical_web_tree_snap
+
+  Build-depends:
+    
+    base                      >= 4     && < 5,
+    blaze-builder             >= 0.2,
+    bytestring                >= 0.9.1 && < 0.11,
+    directory >= 1.2, 
+    either >= 3.4, 
+    esqueleto >= 1.2, 
+    heist >= 0.12,
+    monad-logger >= 0.3,
+    mtl                       >= 2     && < 3,
+    persistent >= 1.2, 
+    persistent-sqlite >= 1.2, 
+    persistent-template >= 1.2, 
+    resource-pool >= 0.2,
+    resourcet >= 0.4, 
+    snap-core                 >= 0.9   && < 0.11,
+    snap-server               >= 0.9   && < 0.11,
+    template-haskell >= 2.8, 
+    text >= 0.11, 
+    transformers >= 0.3, 
+    xmlhtml                   >= 0.2
+
+  if impl(ghc >= 6.12.0)
+    ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+                 -fno-warn-unused-do-bind
+  else
+    ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+
+source-repository head
+  type:     git
+  location: git://github.com/placintac/hierarchical-web-tree-snap.git
