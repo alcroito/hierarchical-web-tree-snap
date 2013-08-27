@@ -5,3 +5,6 @@ cabal-dev
 *.chi
 *.chs.h
 .virthualenv
+log/access.log
+log/error.log
+myhaskdb.db
