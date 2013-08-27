@@ -48,9 +48,6 @@ type Mytree = Tree TreeInfo
 instance F.Foldable Tree where
     foldMap f (Node node children) = f (node) `mappend` F.foldMap (F.foldMap f) children
 
---filter :: (F.Foldable f, Monoid (f a), Monad f) => (a -> Bool) -> f a -> f a
-filter p = F.foldMap (\a -> if p a then return a else mempty)
-
 main2 = runSqlite "myhaskdb.db" $ do
 	setupDB
 	deleteFromTreeTable
@@ -101,7 +98,7 @@ deleteFromTreeTable = do
 
 deleteNodeFromTreeTable :: Int -> Mytree -> SqlPersistT (NoLoggingT (ResourceT IO)) ()
 deleteNodeFromTreeTable nid tree = do
-	let ids_to_delete = getTreeChildren $ findElementInTree nid tree
+	let ids_to_delete = getTreeChildren $ findElementInTree2 nid tree
 	Database.Esqueleto.delete $
 		from $ \t -> do
 			where_ (t ^. TreeObjectNid ==. val nid)
@@ -115,8 +112,20 @@ getMaxNidFromDB = do
 		from $ \t -> do
 			return $ max_ (t ^. TreeObjectNid)
 
---findElementInTree2 :: Int -> Mytree -> [TreeInfo]
-findElementInTree2 fnid tree = TreeModel.filter (\(TreeInfo text nid pid) -> fnid == nid) tree
+treeFilter :: (Monad m, F.Foldable t, Monoid (m a)) => (a -> Bool) -> t a -> m a
+treeFilter p = F.foldMap (\a -> if p a then return a else mempty)
+
+annotateTree :: Tree a -> Tree (Tree a)
+annotateTree (Node node children) = Node (Node node children) (map annotateTree children)
+
+findElementInTree2 :: Int -> Tree TreeInfo -> Tree TreeInfo
+findElementInTree2 fnid tree = 
+	case filter_result of 
+		[] -> EmptyTree
+		otherwise -> head filter_result
+	where 
+		filter_result = treeFilter predicate $ annotateTree tree 
+		predicate (Node (TreeInfo _ nid _) _) = fnid == nid
 
 findElementInTree fnid EmptyTree = EmptyTree
 findElementInTree fnid (Node (TreeInfo text nid pid) children)

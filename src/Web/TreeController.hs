@@ -57,6 +57,7 @@ runApp =
   withSqlitePool "myhaskdb.db" connectionCount $ \pool -> do
     dataDir <- P.getDataDir
     setCurrentDirectory dataDir
+    print $ "Data dir set to " ++ dataDir
     heistState <- initHeistState
     runDB pool $ do
         setupDB
